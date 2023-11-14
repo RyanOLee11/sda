@@ -15,7 +15,7 @@ import (
 var Router *chi.Mux
 var DB *sql.DB
 
-func StartApplication(){
+func StartApplication() {
 	connectionStr := "user=postgres password=postgres dbname=postgres sslmode=disable"
 	conn, err := sql.Open("postgres", connectionStr)
 	if err != nil {
@@ -34,7 +34,7 @@ func StartApplication(){
 	AdminRouter.Put("/order/{id}", UpdateOrder)
 	AdminRouter.Get("/order/{id}", GetOrder)
 	AdminRouter.Delete("/order/{id}", DeleteOrder)
-	
+
 	AdminRouter.Post("/customer", CreateCustomer)
 	AdminRouter.Put("/customer/{id}", UpdateCustomer)
 	AdminRouter.Get("/customer/{id}", GetCustomer)
@@ -44,14 +44,14 @@ func StartApplication(){
 	AdminRouter.Put("/product/{id}", UpdateProduct)
 	AdminRouter.Get("/product/{id}", GetProduct)
 	AdminRouter.Delete("/product/{id}", DeleteProduct)
-	
+
 	Router.Mount("/admin", AdminRouter)
 	fmt.Println("app start")
-	//fmt.Sprint(DB)
+
 	http.ListenAndServe(":8080", Router)
 	defer conn.Close()
 }
 
-func home(w http.ResponseWriter, r *http.Request){
+func home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("this is the home page"))
 }
