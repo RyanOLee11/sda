@@ -3,6 +3,7 @@ package application
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"strconv"
@@ -96,7 +97,10 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	var newCustomer Customer
 	err := decoder.Decode(&newCustomer)
 	if err != nil {
-		panic(err)
+		// Log the error and return a 500 Internal Server Error response
+		log.Printf("Error deleting order: %v", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
 	var id int
 	err = DB.QueryRow(
