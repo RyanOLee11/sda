@@ -2,7 +2,9 @@ package application
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -22,6 +24,7 @@ func StartApplication() {
 		panic(err)
 	}
 	DB = conn
+	defer conn.Close()
 	Router := chi.NewRouter()
 	AdminRouter := chi.NewRouter()
 	Router.Use(middleware.Logger)
@@ -47,11 +50,16 @@ func StartApplication() {
 
 	Router.Mount("/admin", AdminRouter)
 	fmt.Println("app start")
+	wd, _ := os.Getwd()
+
+	fmt.Println(wd)
+
 
 	http.ListenAndServe(":8080", Router)
-	defer conn.Close()
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("this is the home page"))
+	tmpl, _ := template.ParseFiles("Views/Pages/Home.html")
+
+	tmpl.Execute(w,"")
 }

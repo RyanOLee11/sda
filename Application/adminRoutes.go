@@ -16,14 +16,16 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var newProd Product
 	err := decoder.Decode(&newProd)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	var id int
 	err = DB.QueryRow(
 		"INSERT INTO products(name, price, description) VALUES($1, $2, $3) RETURNING id",
 		newProd.Name, newProd.Price, newProd.Description).Scan(&id)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	w.Write([]byte("this is create a product"))
 }
@@ -32,14 +34,16 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	var Prod Product
 	err := decoder.Decode(&Prod)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	fmt.Println(id)
 	_, err = DB.Exec("update products set name = $1, price = $2, description = $3 where id = $4",
 		Prod.Name, Prod.Price, Prod.Description, id)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	w.Write([]byte("this is update a product"))
 }
@@ -49,7 +53,8 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	_, err := DB.Exec("delete from products where id = $1", id)
 
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 
 	w.Write([]byte("this is delete a product"))
@@ -59,12 +64,14 @@ func CreateOrder(w http.ResponseWriter, r *http.Request) {
 	var newOrder Order
 	err := decoder.Decode(&newOrder)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	var id int
 	err = DB.QueryRow("insert into orders (customer_id, order_date, order_total) values($1, $2, $3) returning ID", newOrder.CustomerID, newOrder.OrderDate, newOrder.OrderTotal).Scan(&id)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	w.Write([]byte("this is create a order"))
 }
@@ -73,13 +80,15 @@ func UpdateOrder(w http.ResponseWriter, r *http.Request) {
 	var ord Order
 	err := decoder.Decode(&ord)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	_, err = DB.Exec("update orders set customer_id = $1 , order_date = $2, order_total = $3 where id = $4", ord.CustomerID, ord.OrderDate, ord.OrderTotal, id)
 
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	w.Write([]byte("this is update a order"))
 }
@@ -88,7 +97,8 @@ func DeleteOrder(w http.ResponseWriter, r *http.Request) {
 
 	_, err := DB.Exec("delete from orders where id = $1", id)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	w.Write([]byte("this is delete a order"))
 }
@@ -107,7 +117,8 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 		"INSERT INTO customers(first_name, last_name, state, address) VALUES($1, $2, $3, $4) RETURNING id",
 		newCustomer.FirstName, newCustomer.LastName, newCustomer.State, newCustomer.Address).Scan(&id)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	w.Write([]byte("this is create a customer"))
 }
@@ -116,14 +127,16 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	var Cust Customer
 	err := decoder.Decode(&Cust)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	fmt.Println(id)
 	_, err = DB.Exec("update customers set first_name = $1, last_name = $2, state = $3, address = $4 where id = $5",
 		Cust.FirstName, Cust.LastName, Cust.State, Cust.Address, id)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 	w.Write([]byte("this is update a customer"))
 }
@@ -133,7 +146,8 @@ func DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 	_, err := DB.Exec("delete from customers where id = $1", id)
 
 	if err != nil {
-		panic(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+
 	}
 
 	w.Write([]byte("this is delete a customer"))

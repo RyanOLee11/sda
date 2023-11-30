@@ -55,3 +55,122 @@
       </div>
 </body>
 </html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Information</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome for icons -->
+    <style>
+        /* Apply styles for modern design with WestJet coloring scheme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .flight-info {
+            background-color: #f7f9f9; /* Subtle grayish background */
+            border-radius: 10px; 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for a subtle appearance */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .flight-header {
+            font-weight: bold;
+            font-size: 24px; 
+            color: #48ABA6; /* WestJet Green */
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .flight-source-destination {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .flight-arrow {
+            font-size: 24px; 
+            margin: 0 20px; 
+            color: #48ABA6; /* WestJet Green for icons */
+        }
+
+        .destinations-table {
+            background-color: #eef2f4; /* Very subtle gray */
+            border-radius: 10px; 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            width: 100%; 
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .destination-cell {
+            border: none;
+            padding: 20px;
+            text-align: center;
+            flex: 1; 
+        }
+
+        .destination-title {
+            font-weight: bold;
+            font-size: 18px; 
+            color: #48ABA6; /* WestJet Green */
+            margin-bottom: 10px;
+        }
+
+        .destination-info {
+            font-size: 16px;
+            color: #48ABA6; /* WestJet Green */
+        }
+    </style>
+</head>
+<body>
+    <div class="flight-info">
+        <div class="flight-header">
+            Flight Information: &P8_FN.
+        </div>
+        <div class="flight-source-destination">
+            <div class="flight-source">&P8_DEPARTURE_A.</div>
+            <div class="flight-arrow">➔</div>
+            <div class="flight-destination">&P8_ARRIVAL_A.</div>
+        </div>
+        <div class="destinations-table">
+            <div class="destination-cell info-cell">
+                <div class="destination-title">Departure Destination</div>
+                <div class="destination-info">
+                    <div>Terminal: &P8_DEPARTURE_TERMINAL.</div>
+                    <div>Gate: &P8_DEPARTURE_GATE.</div>
+                    <div>Time: &P8_DEPARTURE_TIME.</div>
+                    <div>Actual Time: &P8_DEPARTURE_ACTUAL_T.</div>
+                </div>
+            </div>
+            <div class="destination-cell info-cell">
+                <div class="destination-title">Arrival Destination</div>
+                <div class="destination-info">
+                    <div>Terminal: &P8_ARRIVAL_TERMINAL.</div>
+                    <div>Gate: &P8_ARRIVAL_GATE.</div>
+                    <div>Time: &P8_ARRIVAL_TIME.</div>
+                    <div>Actual Time: &P8_ARRIVAL_ACTUALT_T.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
